@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
+from sql import Sql
 
-
+Sql = Sql()
+db_conn = Sql.conn_db('lolgamequiz')
 url = 'https://lpl.qq.com/es/worlds/2020/'
 html = """
 <div class="swiper-wrapper" id="team_list" style="transform: translate3d(0px, 0px, 0px);"><a href="//lpl.qq.com/es/team_detail.shtml?tid=29" target="_blank" class="swiper-slide swiper-slide-active" onclick="PTTSendClick('btn','btn-team1','队伍');">
@@ -115,8 +117,20 @@ html = """
                                     <p>OPL赛区：<span>LGC</span></p>
                                     </a></div>
 """
+import re
+
 
 soup = BeautifulSoup(html, 'html.parser')
+a_list = soup.find(id="team_list").find_all('a')
+for a in a_list:
+    href = a['href']
+    tid = href.split('tid=')[-1]
+    area = a.find(text=re.compile('赛区')).strip('：')
+    name = a.find('span').get_text()
+    data = [tid, name, area]
+    sql = 'insert into team(tid, name, area) values("{}", "{}", "{}")'.format(tid, name, area)
+    Sql.exec_sql(db_conn,sql)
+db_conn.close()
 
 
 
