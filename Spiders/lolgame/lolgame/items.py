@@ -9,4 +9,9 @@ import scrapy
 class LolgameItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+
+    date = scrapy.Field()
+    teamA = scrapy.Field()
+    teamB = scrapy.Field()
+    scoreA = scrapy.Field()
+    scoreB = scrapy.Field()
