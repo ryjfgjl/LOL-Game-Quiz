@@ -64,6 +64,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'lolgame.pipelines.LolgamePipeline': 300,
+    'lolgame.pipelines_rank2019.Rank2019Pipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

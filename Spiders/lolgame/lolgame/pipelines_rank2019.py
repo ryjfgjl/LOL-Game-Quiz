@@ -9,20 +9,16 @@ from itemadapter import ItemAdapter
 from lolgame.sql import Sql
 
 
-class LolgamePipeline:
+class Rank2019Pipeline:
     def process_item(self, item, spider):
 
-        date = item['date']
-        teamA = item['teamA']
-        teamB = item['teamB']
-        scoreA = item['scoreA']
-        scoreB = item['scoreB']
-        fullTeamA = item['fullTeamA']
-        fullTeamB = item['fullTeamB']
+        teamName = item['teamName']
+        rank = item['rank']
+        region = item['region']
 
         self.Sql = Sql()
         db_conn = self.Sql.conn_db('lolgamequiz')
-        sql = 'insert into world2019(date, teamA, teamB, scoreA, scoreB, fullTeamA, fullTeamB) values ("{}", "{}", "{}", "{}", "{}", "{}", "{}")'.format(date, teamA, teamB, scoreA, scoreB, fullTeamA, fullTeamB)
+        sql = 'insert into rank2019(teamName, rank, region) values ("{}", "{}", "{}")'.format(teamName, rank, region)
         self.Sql.exec_sql(db_conn, sql)
 
         return item

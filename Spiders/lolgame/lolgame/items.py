@@ -15,3 +15,5 @@ class LolgameItem(scrapy.Item):
     teamB = scrapy.Field()
     scoreA = scrapy.Field()
     scoreB = scrapy.Field()
+    fullTeamA = scrapy.Field()
+    fullTeamB = scrapy.Field()

@@ -34,11 +34,17 @@ class World2019(scrapy.Spider):
                 scoreA = scores[0].get_text()
                 scoreB = scores[1].get_text()
 
+                fullTeamA = match.find('td', 'matchlist-team1')['data-teamhighlight']
+                fullTeamB = match.find('td', 'matchlist-team2')['data-teamhighlight']
+                
                 item['date'] = date
                 item['teamA'] = teamA
                 item['teamB'] = teamB
                 item['scoreA'] = scoreA
                 item['scoreB'] = scoreB
+                item['fullTeamA'] = fullTeamA
+                item['fullTeamB'] = fullTeamB
+                
 
                 yield item
 
