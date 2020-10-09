@@ -12,11 +12,11 @@ class Rank2019(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            'https://lol.gamepedia.com/NA_LCS/2018_Season/Championship_Points',
-            'https://lol.gamepedia.com/EU_LCS/2018_Season/Championship_Points',
-            'https://lol.gamepedia.com/LCK/2018_Season/Championship_Points',
-            'https://lol.gamepedia.com/LPL/2018_Season/Championship_Points',
-            'https://lol.gamepedia.com/LMS/2018_Season/Championship_Points',
+            'https://lol.gamepedia.com/LCS/2019_Season/Championship_Points',
+            'https://lol.gamepedia.com/LEC/2019_Season/Championship_Points',
+            'https://lol.gamepedia.com/LCK/2019_Season/Championship_Points',
+            'https://lol.gamepedia.com/LPL/2019_Season/Championship_Points',
+            'https://lol.gamepedia.com/LMS/2019_Season/Championship_Points',
             
         ]
         for url in urls:
@@ -29,9 +29,8 @@ class Rank2019(scrapy.Spider):
         region = url.split('https://lol.gamepedia.com/')[-1].split('/')[0]
         soup = BeautifulSoup(html, 'html.parser')
         trs = soup.find('table', 'wikitable circuitpoints').find('tbody').find_all(lambda x:x.name=='tr' and x.has_attr('class'))
-        print(trs[0])
         for tr in trs:
-            teamName = tr.find('span', 'team-object').find('a','catlink-teams').get_text()
+            teamName = tr.find('span', 'team-object').find('a','catlink-teams')['title']
             rank = tr.find('td').get_text()
 
             item['teamName'] = teamName
