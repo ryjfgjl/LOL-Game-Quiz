@@ -25,7 +25,7 @@ class LolgamePipeline:
 
         self.Sql = Sql()
         db_conn = self.Sql.conn_db('lolgamequiz')
-        sql = 'insert into world2019(date, teamA, teamB, scoreA, scoreB, fullTeamA, fullTeamB, dayNum, dayOrder, processor) values \
+        sql = 'insert into world2020(date, teamA, teamB, scoreA, scoreB, fullTeamA, fullTeamB, dayNum, dayOrder, processor) values \
         ("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}")'.format(date, teamA, teamB, scoreA, scoreB, fullTeamA, fullTeamB, dayNum, dayOrder, processor)
         self.Sql.exec_sql(db_conn, sql)
 

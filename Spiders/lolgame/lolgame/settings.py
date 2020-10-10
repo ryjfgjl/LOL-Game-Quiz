@@ -65,6 +65,9 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'lolgame.pipelines.LolgamePipeline': 300,
     'lolgame.pipelines_rank2019.Rank2019Pipeline': 300,
+
+    'lolgame.pipelines_world2019.LolgamePipeline': 300,
+    'lolgame.pipelines_rank2020.Rank2020Pipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -1,19 +1,19 @@
 import scrapy
 from bs4 import BeautifulSoup
-from lolgame.items import LolgameItem
+from lolgame.items_world2020 import LolgameItem
 
 
-class World2019(scrapy.Spider):
-    name = "world2019"
+class World2020(scrapy.Spider):
+    name = "world2020"
 
     custom_settings = {
-        'ITEM_PIPELINES' : {'lolgame.pipelines.LolgamePipeline': 300},
+        'ITEM_PIPELINES' : {'lolgame.pipelines_world2020.LolgamePipeline': 300},
     }
 
     def start_requests(self):
         urls = [
-            'https://lol.gamepedia.com/2019_Season_World_Championship/Play-In',
-            'https://lol.gamepedia.com/2019_Season_World_Championship/Main_Event',
+            'https://lol.gamepedia.com/2020_Season_World_Championship/Play-In',
+            'https://lol.gamepedia.com/2020_Season_World_Championship/Main_Event',
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -33,8 +33,13 @@ class World2019(scrapy.Spider):
                 teamA = teamnames[0].get_text()
                 teamB = teamnames[1].get_text()
                 scores = match.find_all('td', 'matchlist-score')
-                scoreA = scores[0].get_text()
-                scoreB = scores[1].get_text()
+                if scores:
+                    scoreA = scores[0].get_text()
+                    scoreB = scores[1].get_text()
+                else:
+                    scoreA = 0
+                    scoreB = 0
+                    
 
                 fullTeamA = match.find('td', 'matchlist-team1')['data-teamhighlight']
                 fullTeamB = match.find('td', 'matchlist-team2')['data-teamhighlight']
