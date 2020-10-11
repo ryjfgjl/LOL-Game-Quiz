@@ -64,10 +64,4 @@ commit;
 
 
 
-SELECT * FROM world2020 ORDER BY date, dayNum, dayOrder;
-SELECT * FROM rank2020;
-SELECT * FROM rank2019;
-SELECT * FROM results;
-DROP TABLE IF EXISTS results;
-CREATE TABLE z_newcreate_tmp 
 	
