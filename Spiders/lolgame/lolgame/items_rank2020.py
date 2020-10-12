@@ -13,3 +13,4 @@ class Rank2020Item(scrapy.Item):
     teamName = scrapy.Field()
     rank = scrapy.Field()
     region = scrapy.Field()
+    link = scrapy.Field()

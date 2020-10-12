@@ -12,11 +12,8 @@ class Rank2019(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            'https://lol.gamepedia.com/LCS/2019_Season/Championship_Points',
-            'https://lol.gamepedia.com/LEC/2019_Season/Championship_Points',
-            'https://lol.gamepedia.com/LCK/2019_Season/Championship_Points',
-            'https://lol.gamepedia.com/LPL/2019_Season/Championship_Points',
-            'https://lol.gamepedia.com/LMS/2019_Season/Championship_Points',
+            'https://lol.gamepedia.com/2019_Season_World_Championship/Play-In',
+            'https://lol.gamepedia.com/2019_Season_World_Championship/Main_Event',
             
         ]
         for url in urls:
@@ -25,16 +22,25 @@ class Rank2019(scrapy.Spider):
     def parse(self, response):
         item = Rank2019Item()
         html = response.text
-        url = response.url
-        region = url.split('https://lol.gamepedia.com/')[-1].split('/')[0]
         soup = BeautifulSoup(html, 'html.parser')
-        trs = soup.find('table', 'wikitable circuitpoints').find('tbody').find_all(lambda x:x.name=='tr' and x.has_attr('class'))
-        for tr in trs:
-            teamName = tr.find('span', 'team-object').find('a','catlink-teams')['title']
-            rank = tr.find('td').get_text()
+        pools = soup.find_all('div', 'pool-participants')
+        for pool in pools:
+            contents = pool.find_all('div', 'inline-content')
+            for content in contents:
+                region_rank = content.find('a').get_text()
+                region = region_rank.split('#')[0]
+                if '#' in region_rank:
+                    rank = region_rank.split('#')[-1]
+                else:
+                    rank = '1'
 
-            item['teamName'] = teamName
-            item['rank'] = rank
-            item['region'] = region
+                team_info = content.find('tbody').find('a')
+                teamName = team_info['title']
+                link = team_info['href']
 
-            yield item
+                item['teamName'] = teamName
+                item['rank'] = rank
+                item['region'] = region
+                item['link'] = link
+
+                yield item
