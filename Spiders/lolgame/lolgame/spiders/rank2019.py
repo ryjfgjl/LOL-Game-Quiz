@@ -28,7 +28,7 @@ class Rank2019(scrapy.Spider):
             contents = pool.find_all('div', 'inline-content')
             for content in contents:
                 region_rank = content.find('a').get_text()
-                region = region_rank.split('#')[0]
+                region = content.find('div', 'region-icon').get_text()
                 if '#' in region_rank:
                     rank = region_rank.split('#')[-1]
                 else:

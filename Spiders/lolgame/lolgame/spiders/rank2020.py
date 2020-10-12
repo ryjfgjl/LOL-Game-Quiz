@@ -30,7 +30,7 @@ class Rank2020(scrapy.Spider):
                 region_rank = content.find('a')
                 if region_rank:
                     region_rank = region_rank.get_text()
-                    region = region_rank.split('#')[0]
+                    region = content.find('div', 'region-icon').get_text()
                     if '#' in region_rank:
                         rank = region_rank.split('#')[-1]
                     else:

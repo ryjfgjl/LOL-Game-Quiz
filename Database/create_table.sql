@@ -23,7 +23,8 @@ CREATE TABLE rank2019
 	id int unsigned primary key auto_increment,
     teamName varchar(255) default null,
     rank varchar(255) default null,
-	region VARCHAR(255) DEFAULT NULL
+	region VARCHAR(255) DEFAULT NULL,
+    link varchar(255) default null
 );
 
 
@@ -56,7 +57,8 @@ CREATE TABLE rank2020
 	id int unsigned primary key auto_increment,
     teamName varchar(255) default null,
     rank varchar(255) default null,
-	region VARCHAR(255) DEFAULT NULL
+	region VARCHAR(255) DEFAULT NULL,
+    link varchar(255) default null
 );
 
 
